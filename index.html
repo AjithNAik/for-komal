@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Komal ❤️</title>
+
+<style>
+  body {
+    margin: 0;
+    height: 100vh;
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #cdb4db, #ffc8dd);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+  }
+
+  .container {
+    text-align: center;
+    padding: 20px;
+  }
+
+  #revealBtn {
+    font-size: 26px;
+    padding: 20px 38px;
+    background: #ff4d6d;
+    color: white;
+    border-radius: 30px;
+    cursor: pointer;
+    animation: pulse 1.8s infinite;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+  }
+
+  @keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+  }
+
+  .questionText {
+    font-size: 36px;
+    font-weight: bold;
+    color: #ff1e56;
+    animation: fadeZoom 1.8s ease-in-out infinite alternate;
+    margin-bottom: 25px;
+  }
+
+  @keyframes fadeZoom {
+    from { opacity: 0.7; transform: scale(1); }
+    to { opacity: 1; transform: scale(1.08); }
+  }
+
+  button {
+    padding: 14px 32px;
+    font-size: 18px;
+    border: none;
+    border-radius: 14px;
+    cursor: pointer;
+    margin: 10px;
+  }
+
+  #yesBtn {
+    background-color: #ff1e56;
+    color: white;
+  }
+
+  #noBtn {
+    background-color: #6c757d;
+    color: white;
+    position: absolute;
+  }
+
+  /* HEARTS */
+  .heart {
+    position: fixed;
+    animation: float 6s linear infinite;
+    text-shadow: 0 0 12px #c1121f, 0 0 30px #ff0000;
+  }
+
+  @keyframes float {
+    from {
+      transform: translateY(100vh) scale(1);
+      opacity: 1;
+    }
+    to {
+      transform: translateY(-15vh) scale(1.4);
+      opacity: 0;
+    }
+  }
+
+  /* POP */
+  @keyframes pop {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.25); }
+    100% { transform: scale(1); }
+  }
+
+  #finalMessage {
+    font-size: 28px;
+    font-weight: bold;
+    color: #ff0000;
+  }
+</style>
+</head>
+
+<body>
+
+<div class="container" id="start">
+  <div id="revealBtn" onclick="startSurprise()">
+    💌 Click to Reveal 💌
+  </div>
+</div>
+
+<div class="container" id="question" style="display:none;">
+  <div class="questionText">
+    Komal ❤️<br>
+    Will you be my Valentine?
+  </div>
+  <button id="yesBtn" onclick="showLove()">Yes 💕</button>
+  <button id="noBtn" ontouchstart="moveNo()" onmouseover="moveNo()">No 😜</button>
+</div>
+
+<div class="container" id="love" style="display:none;">
+  <div id="finalMessage">
+    I knew you’d say YES ❤️<br>
+  </div>
+</div>
+
+<script>
+  function startSurprise() {
+    document.getElementById("start").style.display = "none";
+    document.getElementById("question").style.display = "block";
+  }
+
+  function moveNo() {
+    const noBtn = document.getElementById("noBtn");
+    const w = noBtn.offsetWidth;
+    const h = noBtn.offsetHeight;
+
+    const x = Math.random() * (window.innerWidth - w - 10);
+    const y = Math.random() * (window.innerHeight - h - 10);
+
+    noBtn.style.left = x + "px";
+    noBtn.style.top = y + "px";
+  }
+
+  function createHeart(x = Math.random() * window.innerWidth) {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerHTML = "❤️";
+    heart.style.left = x + "px";
+    heart.style.fontSize = Math.random() * 35 + 55 + "px";
+    heart.style.color = "#ff0000";
+    document.body.appendChild(heart);
+
+    setTimeout(() => heart.remove(), 6000);
+  }
+
+  function heartExplosion() {
+    const centerX = window.innerWidth / 2;
+    for (let i = 0; i < 25; i++) {
+      setTimeout(() => {
+        createHeart(centerX + (Math.random() * 200 - 100));
+      }, i * 40);
+    }
+  }
+
+  function showLove() {
+    document.getElementById("question").style.display = "none";
+    document.getElementById("love").style.display = "block";
+
+    const msg = document.getElementById("finalMessage");
+    msg.style.animation = "pop 0.6s ease";
+
+    /* INSTANT EXPLOSION */
+    heartExplosion();
+
+    /* CONTINUOUS HEARTS */
+    setInterval(createHeart, 220);
+  }
+</script>
+
+</body>
+</html>
